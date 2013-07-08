@@ -25,3 +25,5 @@ class Word:
 	@property
 	def meanings(self): self.meanings
 
+	def __str__(self):
+		return self.word+"->"+str(self.meanings)
