@@ -2,6 +2,7 @@ import os
 import os.path
 import re
 from word import Word
+import itertools
 
 """
 This class fetches the list of words from the predefined directories. Words from additional directories can also be requested.
@@ -35,7 +36,6 @@ class WordFactory:
 		matcher = self.pattern.match(line)
 		if matcher:
 			matched = list(matcher.groups())
-			print(matched)
 			w=Word(matched[0], matched[-1])
 			return w
 		return None
@@ -43,12 +43,12 @@ class WordFactory:
 	def load_words(self, directory):
 		if not os.path.isdir(directory):
 			raise Exception("Incorrect directory:%s" % directory)
+		words=[]
 		for file in os.listdir(directory):
-			print(file)
 			if self.has_correct_extension(file):
 				with open(directory+os.path.sep+file, 'r') as open_file:
-					return [self.createWord(line) for line in open_file]
-		return []	
+					words.extend([self.createWord(line) for line in open_file])
+		return words
 	
 def main():
 	w = WordFactory()
