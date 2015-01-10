@@ -5,7 +5,7 @@ import sys
 sys.path.append('..')
 
 from model.word import *
-from model.WordFactory import * 
+from model.WordFactory import *
 import random
 
 
@@ -20,10 +20,10 @@ class question:
 		OPTION_FORMAT = "\t%d) %s"
 		print("q. %s" % self.question)
 		for (i, option) in enumerate(self.options):
-			print(OPTION_FORMAT % (i,option.strip()))
+			print(OPTION_FORMAT % (i+1,option.strip()))
 
 	def check_answer(self, answer):
-		return int(answer)==self.correct_answer
+		return int(answer-1)==self.correct_answer
 
 
 class Test:
@@ -33,7 +33,7 @@ class Test:
 
 	def generate_questions(self):
 
-		NO_OPTIONS=4		
+		NO_OPTIONS=4
 
 		selected_words = random.sample(self.words, self.question)
 		questions=[]
